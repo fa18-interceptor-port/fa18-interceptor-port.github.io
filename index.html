@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>F/A-18 Interceptor — modern port</title>
+  <meta name="description" content="Modern C++/SDL2 port of the 1988 Amiga flight simulator F/A-18 Interceptor. Play in the browser or download for Windows, Android and R36S.">
+  <style>
+    :root {
+      --bg: #0a0e14;
+      --panel: #121820;
+      --text: #e6edf3;
+      --muted: #8b9aab;
+      --accent: #f0b860;
+      --link: #6cb6ff;
+      --border: #243044;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+                 font-family: system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.55; }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 52rem; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+    header { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem;
+             margin-bottom: 1.75rem; border-bottom: 1px solid var(--border); padding-bottom: 1.25rem; }
+    header img { width: 72px; height: 72px; image-rendering: pixelated; border-radius: 12px;
+                 background: var(--panel); border: 1px solid var(--border); }
+    header h1 { margin: 0; font-size: 1.6rem; letter-spacing: -0.02em; }
+    header .sub { color: var(--muted); font-size: 0.95rem; margin: 0.2rem 0 0; }
+    .version { display: inline-block; font-size: 0.75rem; color: var(--accent);
+               border: 1px solid var(--border); border-radius: 999px; padding: 0.1rem 0.55rem;
+               margin-left: 0.4rem; vertical-align: middle; }
+    .hero { background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+            padding: 1.25rem 1.35rem; margin-bottom: 1.5rem; }
+    .hero p { margin: 0 0 0.75rem; }
+    .hero p:last-child { margin-bottom: 0; }
+    .cta { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
+    .btn {
+      display: inline-block; background: #1a2740; color: var(--text);
+      border: 1px solid var(--border); border-radius: 6px;
+      padding: 0.55rem 1rem; font-weight: 600; font-size: 0.95rem;
+    }
+    .btn.primary { background: #2a4a7a; border-color: #3a6aaa; }
+    .btn:hover { background: #243454; text-decoration: none; }
+    .btn.primary:hover { background: #345888; }
+    .warn {
+      background: #2a2210; border: 1px solid #5a4820; color: #f0d090;
+      border-radius: 8px; padding: 0.85rem 1rem; margin: 1.25rem 0;
+      font-size: 0.92rem;
+    }
+    .warn code { background: #1a180c; padding: 0.1rem 0.35rem; border-radius: 3px; font-size: 0.85em; }
+    section { margin: 1.75rem 0; }
+    section h2 { font-size: 1.15rem; margin: 0 0 0.6rem; color: var(--accent);
+                 border-bottom: 1px solid var(--border); padding-bottom: 0.35rem; }
+    ul.downloads { list-style: none; padding: 0; margin: 0; }
+    ul.downloads li {
+      display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.35rem 0.75rem;
+      padding: 0.65rem 0; border-bottom: 1px solid var(--border);
+    }
+    ul.downloads li:last-child { border-bottom: none; }
+    ul.downloads a { font-weight: 600; }
+    ul.downloads .note { color: var(--muted); font-size: 0.88rem; }
+    kbd {
+      font-family: inherit; font-size: 0.8rem;
+      border: 1px solid var(--border); border-radius: 3px;
+      padding: 0.05rem 0.35rem; background: var(--panel);
+    }
+    footer { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--border);
+             color: var(--muted); font-size: 0.85rem; }
+    .shot { max-width: 100%; border-radius: 8px; border: 1px solid var(--border); margin: 0.75rem 0; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <img src="images/icon.png" alt="">
+      <div>
+        <h1>F/A-18 Interceptor <span class="version">@version@</span></h1>
+        <p class="sub">Modern C++/SDL2 port of the 1988 Amiga flight simulator</p>
+      </div>
+    </header>
+
+    <div class="hero">
+      <p>
+        A reverse-engineered port of Bob Dinnerman’s
+        <strong>F/A-18 Interceptor</strong> (Intellisoft / Electronic Arts, 1988)
+        to modern C++ with SDL2: 68000 recompilation, Amiga custom-chip HLE,
+        optional OpenGL 3D view, and the original disk loaded at runtime.
+      </p>
+      <div class="cta">
+        <a class="btn primary" href="play/">Play in the browser</a>
+        <a class="btn" href="https://github.com/Grumbel/fa18-interceptor-port">Source on GitHub</a>
+      </div>
+    </div>
+
+    <div class="warn">
+      <strong>You need the original ADF.</strong>
+      These builds do <em>not</em> include the 1988 game disk — it is not redistributable.
+      Obtain a legal TOSEC copy such as
+      <code>FA-18 Interceptor (1988)(Electronic Arts).adf</code>
+      and supply it yourself: Upload button on the web build, next to the
+      executable on desktop/Windows, app files dir on Android, or the PortMaster
+      port folder on R36S.
+    </div>
+
+    <section>
+      <h2>Downloads</h2>
+      <ul class="downloads">
+        <li>
+          <a href="downloads/fa18-win64.zip">Windows 64-bit</a>
+          <span class="note">Zip with <code>fa18.exe</code> and SDL2.dll — place the ADF beside the exe.</span>
+        </li>
+        <li>
+          <a href="downloads/fa18-win32.zip">Windows 32-bit</a>
+          <span class="note">Same layout for older Windows.</span>
+        </li>
+        <li>
+          <a href="downloads/fa18.apk">Android APK</a>
+          <span class="note"><code>adb push disk.adf</code> into the app files directory.</span>
+        </li>
+        <li>
+          <a href="downloads/r36s/fa18.zip">R36S / PortMaster</a>
+          <span class="note">Install via PortMaster; put the ADF in <code>ports/fa18/</code>.</span>
+        </li>
+        <li>
+          <a href="https://github.com/Grumbel/fa18-interceptor-port">Linux / source</a>
+          <span class="note">Build with Nix (<code>nix run github:Grumbel/fa18-interceptor-port</code>) or CMake + SDL2.</span>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Play in the browser</h2>
+      <p>
+        The WebAssembly build runs entirely in your browser. After opening
+        <a href="play/">play/</a>, use <strong>Upload ADF…</strong> once; the image
+        stays in this browser’s storage for that site origin.
+      </p>
+    </section>
+
+    <section>
+      <h2>Controls</h2>
+      <ul>
+        <li><kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd> / numpad — flight stick</li>
+        <li><kbd>Space</kbd> — fire</li>
+        <li>Throttle, views and weapons — as on the Amiga original</li>
+        <li>Gamepads and joysticks via SDL2</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>About</h2>
+      <p>
+        The original Amiga executable is loaded from the ADF and either interpreted
+        or statically recompiled to C++. OS calls go through high-level emulation;
+        the blitter, copper, Paula and display match the game’s needs. Optional
+        remasters (<code>--hires</code>, <code>--gl</code>, analog stick, text pacing)
+        leave the original behaviour as the default path.
+      </p>
+      <p>
+        This is an educational reverse-engineering project. The original game
+        remains under its original copyright; new code is GPL-3.0-or-later.
+      </p>
+    </section>
+
+    <footer>
+      <a href="https://github.com/Grumbel/fa18-interceptor-port">fa18-interceptor-port</a>
+      · GPL-3.0-or-later (new code)
+      · site built with Nix, deployed via GitHub Pages
+    </footer>
+  </div>
+</body>
+</html>
